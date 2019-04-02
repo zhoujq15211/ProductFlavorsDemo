@@ -1,5 +1,5 @@
-####android 渠道(productFlavors)打包demo
-####app通过渠道差异化依赖Flavor1Lib和Flavor2Lib
-####注意关注app和lib下的build.gradle配置
-####app下有flavor1_1、flavor1_2、flavor2_1、flavor2_2四个文件夹，对应build.gradle中配置的四个渠道，打包时候会自动使用渠道对于的代码
-####Flavor1Lib、Flavor2Lib下的渠道文件夹同理
+android 渠道(productFlavors)打包demo
+app通过渠道差异化依赖Flavor1Lib和Flavor2Lib
+注意关注app和lib下的build.gradle配置
+app下有flavor1_1、flavor1_2、flavor2_1、flavor2_2四个文件夹，对应build.gradle中配置的四个渠道，打包时候会自动使用渠道对于的代码
+Flavor1Lib、Flavor2Lib下的渠道文件夹同理
