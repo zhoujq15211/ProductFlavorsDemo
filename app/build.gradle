@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.zhoujq.demo.flavors"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    //*************渠道打包配置*********************************************
+    flavorDimensions "flavor"
+    productFlavors {
+        flavor1_1 {
+            dimension "flavor"
+            //不同渠道设置不同的applicationId，可以根据渠道打包为不同的app
+            applicationId "com.zhou.demo.kotlinsdk.market11"
+            //占位符自定义AndroidManifest.xml文件中内容，使用：android:label="${app_name}"
+            manifestPlaceholders = [app_name: "flavor1_1"]
+        }
+        flavor1_2 {
+            dimension "flavor"
+            applicationId "com.zhou.demo.kotlinsdk.market12"
+            manifestPlaceholders = [app_name: "flavor1_2"]
+        }
+        flavor2_1 {
+            dimension "flavor"
+            applicationId "com.zhou.demo.kotlinsdk.market21"
+            manifestPlaceholders = [app_name: "flavor2_1"]
+        }
+        flavor2_2 {
+            dimension "flavor"
+            applicationId "com.zhou.demo.kotlinsdk.market22"
+            manifestPlaceholders = [app_name: "flavor2_2"]
+        }
+    }
+    //*****************************end****************************************
+}
+//*************渠道打包配置，动态引用*********************************************
+configurations {
+    flavor1_1Api
+    flavor1_2Api
+    flavor2_1Api
+    flavor2_2Api
+}
+//*******************************end**************************************
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //*************渠道打包配置，动态引用*********************************************
+    flavor1_1Api project(':Flavor1Lib')
+    flavor1_2Api project(':Flavor1Lib')
+    flavor2_1Api project(':Flavor2Lib')
+    flavor2_2Api project(':Flavor2Lib')
+//    flavor1_1Api project(path: ':Flavor1Lib', configuration: 'flavor1_1Release')
+//    flavor1_2Api project(path: ':Flavor1Lib', configuration: 'flavor1_2Release')
+//    flavor2_1Api project(path: ':Flavor1Lib', configuration: 'flavor2_1Release')
+//    flavor2_2Api project(path: ':Flavor1Lib', configuration: 'flavor2_2Release'
+// ************************end*********************************************
+}
